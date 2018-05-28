@@ -10,6 +10,7 @@ podTemplate(label: 'docker-flink', containers: [
 
         if (env.BRANCH_NAME == "master") {
           withDockerRegistry([ credentialsId: "dockerHubCreds", url: "" ]) {
+            dir "1.4/scala_2.11-debian"
             sh "docker build -t santiment/flink:${env.BRANCH_NAME} ."
             sh "docker push santiment/flink:${env.BRANCH_NAME}"
           }
