@@ -12,7 +12,11 @@ podTemplate(label: 'docker-flink', containers: [
           withDockerRegistry([ credentialsId: "dockerHubCreds", url: "" ]) {
             dir("1.4/scala_2.11-debian") {
               sh "docker build -t santiment/flink:${env.BRANCH_NAME} ."
+              sh "docker tag santiment/flink:${env.BRANCH_NAME} santiment/flink:1.4.2-debian"
+              sh "docker tag santiment/flink:${env.BRANCH_NAME} santiment/flink:1.4.2"
               sh "docker push santiment/flink:${env.BRANCH_NAME}"
+              sh "docker push santiment/flink:1.4.2"
+              sh "docker push santiment/flink:1.4.2-debian"
             }
           }
         }
