@@ -11,11 +11,11 @@ podTemplate(label: 'docker-flink', containers: [
         if (env.BRANCH_NAME == "master") {
           withDockerRegistry([ credentialsId: "dockerHubCreds", url: "" ]) {
               sh "docker build -t santiment/flink:${env.BRANCH_NAME} ."
-              sh "docker tag santiment/flink:${env.BRANCH_NAME} santiment/flink:1.4.2-debian"
-              sh "docker tag santiment/flink:${env.BRANCH_NAME} santiment/flink:1.4.2"
+              # sh "docker tag santiment/flink:${env.BRANCH_NAME} santiment/flink:1.4.2-debian"
+              # sh "docker tag santiment/flink:${env.BRANCH_NAME} santiment/flink:1.4.2"
               sh "docker push santiment/flink:${env.BRANCH_NAME}"
-              sh "docker push santiment/flink:1.4.2"
-              sh "docker push santiment/flink:1.4.2-debian"
+              # sh "docker push santiment/flink:1.4.2"
+              # sh "docker push santiment/flink:1.4.2-debian"
           }
         }
       }
