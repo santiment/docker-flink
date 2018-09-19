@@ -4,17 +4,28 @@ podTemplate(label: 'docker-flink', containers: [
   ])
 ]) {
   node('docker-flink') {
-    stage('Build Image') {
-      container('docker') {
-        def scmVars = checkout scm
-        def commitHash = scmVars.GIT_COMMIT
+    container('docker') {
+      def scmVars = checkout scm
+      def commitHash = scmVars.GIT_COMMIT
 
+      stage('Build 1.4 Image') {
         if (env.BRANCH_NAME == "master") {
           withDockerRegistry([ credentialsId: "dockerHubCreds", url: "" ]) {
-            sh "docker build -t santiment/flink:${env.BRANCH_NAME} ."
+            sh "docker build -t santiment/flink:${env.BRANCH_NAME} -f Dockerfile.1.4 ."
             sh "docker tag santiment/flink:${env.BRANCH_NAME} santiment/flink:1.4-debian-${commitHash}"
             sh "docker push santiment/flink:${env.BRANCH_NAME}"
             sh "docker push santiment/flink:1.4-debian-${commitHash}"
+          }
+        }
+      }
+
+      stage('Build 1.6 image') {
+        if (env.BRANCH_NAME == "master") {
+          withDockerRegistry([ credentialsId: "dockerHubCreds", url: "" ]) {
+            sh "docker build -t santiment/flink:${env.BRANCH_NAME} -f Dockerfile.1.6 ."
+            sh "docker tag santiment/flink:${env.BRANCH_NAME} santiment/flink:1.6-debian-${commitHash}"
+            sh "docker push santiment/flink:${env.BRANCH_NAME}"
+            sh "docker push santiment/flink:1.6-debian-${commitHash}"
           }
         }
       }
