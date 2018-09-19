@@ -11,9 +11,9 @@ podTemplate(label: 'docker-flink', containers: [
       stage('Build 1.4 Image') {
         if (env.BRANCH_NAME == "master") {
           withDockerRegistry([ credentialsId: "dockerHubCreds", url: "" ]) {
-            sh "docker build -t santiment/flink:${env.BRANCH_NAME} -f Dockerfile.1.4 ."
-            sh "docker tag santiment/flink:${env.BRANCH_NAME} santiment/flink:1.4-debian-${commitHash}"
-            sh "docker push santiment/flink:${env.BRANCH_NAME}"
+            sh "docker build -t santiment/flink:1.4-${env.BRANCH_NAME} -f Dockerfile.1.4 ."
+            sh "docker tag santiment/flink:1.4-${env.BRANCH_NAME} santiment/flink:1.4-debian-${commitHash}"
+            sh "docker push santiment/flink:1.4-${env.BRANCH_NAME}"
             sh "docker push santiment/flink:1.4-debian-${commitHash}"
           }
         }
@@ -22,9 +22,9 @@ podTemplate(label: 'docker-flink', containers: [
       stage('Build 1.6 image') {
         if (env.BRANCH_NAME == "master") {
           withDockerRegistry([ credentialsId: "dockerHubCreds", url: "" ]) {
-            sh "docker build -t santiment/flink:${env.BRANCH_NAME} -f Dockerfile.1.6 ."
-            sh "docker tag santiment/flink:${env.BRANCH_NAME} santiment/flink:1.6-debian-${commitHash}"
-            sh "docker push santiment/flink:${env.BRANCH_NAME}"
+            sh "docker build -t santiment/flink:1.6-${env.BRANCH_NAME} -f Dockerfile.1.6 ."
+            sh "docker tag santiment/flink:1.6-${env.BRANCH_NAME} santiment/flink:1.6-debian-${commitHash}"
+            sh "docker push santiment/flink:1.6-${env.BRANCH_NAME}"
             sh "docker push santiment/flink:1.6-debian-${commitHash}"
           }
         }
