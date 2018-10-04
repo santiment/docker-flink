@@ -1,8 +1,6 @@
-# At the time of writing this there was a bug in all other flink
-# images which prevented the cluster to start correctly. The bug was
-# fixed in the docker-flink repo, but only the hadoop28 alpine image
-# was rebuilt.
-FROM flink:1.6.1-hadoop28-scala_2.11-alpine
+# At the time of writing this there was a bug in 1.6.1 flink images
+# which prevented the cluster to start correctly.
+FROM flink:1.6.0-scala_2.11
 
 
 # Environment is inherited from the parent image
