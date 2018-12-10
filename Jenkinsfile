@@ -29,6 +29,17 @@ podTemplate(label: 'docker-flink', containers: [
           }
         }
       }
+
+      stage('Build 1.7 image') {
+        if (env.BRANCH_NAME == "master") {
+          withDockerRegistry([ credentialsId: "dockerHubCreds", url: "" ]) {
+            sh "docker build -t santiment/flink:1.7-${env.BRANCH_NAME} -f Dockerfile.1.7 ."
+            sh "docker tag santiment/flink:1.7-${env.BRANCH_NAME} santiment/flink:1.7-debian-${commitHash}"
+            sh "docker push santiment/flink:1.7-${env.BRANCH_NAME}"
+            sh "docker push santiment/flink:1.7-debian-${commitHash}"
+          }
+        }
+      }
     }
   }
 }
